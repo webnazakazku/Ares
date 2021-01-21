@@ -1,0 +1,48 @@
+name: Tests
+
+on: [push, pull_request]
+
+env:
+  PHPUNIT_FLAGS: "--coverage-clover coverage.clover CHECK_CS=true"
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        php:
+          - '5.4'
+          - '5.5'
+          - '7.0'
+          - '7.1'
+          - '7.2'
+          - '7.3'
+          - '7.4'
+
+      fail-fast: false
+
+    name: PHP ${{ matrix.php }} tests
+    steps:
+      - uses: actions/checkout@v2
+      - uses: shivammathur/setup-php@v1
+        with:
+          php-version: ${{ matrix.php }}
+          extensions: json, mbstring, xml, tokenizer
+          coverage: none
+
+      - run: composer install --no-interaction --prefer-source
+      - run: php vendor/phpunit/phpunit/phpunit $PHPUNIT_FLAGS
+
+  lowest_dependencies:
+    name: Lowest Dependencies
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: shivammathur/setup-php@v1
+        with:
+          php-version: 7.1
+          extensions: json, mbstring, xml, tokenizer
+          coverage: none
+
+      - run: composer update --no-interaction --prefer-dist --prefer-lowest --prefer-stable
+      - run: php vendor/phpunit/phpunit/phpunit $PHPUNIT_FLAGS
