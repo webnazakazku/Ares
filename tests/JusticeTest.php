@@ -4,18 +4,18 @@ namespace Defr\Tests;
 
 use Defr\Justice;
 use Goutte\Client;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 
-final class JusticeTest extends PHPUnit_Framework_TestCase
+final class JusticeTest extends TestCase
 {
     /**
      * @var Justice
      */
     private $justice;
 
-    protected function setUp()
+    protected function setUp(): void
     {
-        if ($this->isTravis()) {
+        if ($this->isCI()) {
             $this->markTestSkipped('Travis cannot connect to Justice.cz');
         }
 
@@ -33,7 +33,7 @@ final class JusticeTest extends PHPUnit_Framework_TestCase
         $this->assertArrayHasKey('Mgr. ROBERT RUNTÁK', $people);
         $person = $people['Mgr. ROBERT RUNTÁK'];
         $this->assertInstanceOf('DateTime', $person->getBirthday());
-        $this->assertInternalType('string', $person->getAddress());
+        $this->assertIsString($person->getAddress());
     }
 
     public function testNotFoundFindId()
@@ -42,15 +42,15 @@ final class JusticeTest extends PHPUnit_Framework_TestCase
         $this->assertFalse($justiceRecord);
     }
 
-    /**
-     * @return bool
-     */
-    private function isTravis()
-    {
-        if (getenv('TRAVIS_PHP_VERSION')) {
-            return true;
-        }
+	/**
+	 * @return bool
+	 */
+	private function isCI()
+	{
+		if (getenv('CI')) {
+			return true;
+		}
 
-        return false;
-    }
+		return false;
+	}
 }

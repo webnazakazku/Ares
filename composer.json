@@ -12,14 +12,15 @@
         }
     ],
     "require": {
-        "php": "^5.4|^7.0",
-        "beberlei/assert": "^2.4",
+        "php": ">=7.2.0",
+        "beberlei/assert": "^2.4|^3.0",
         "dfridrich/library": "^1.0",
-        "fabpot/goutte": "^2.0|^3.0"
+        "fabpot/goutte": "^2.0|^3.0",
+        "guzzlehttp/guzzle": "^6.5"
     },
     "require-dev": {
-        "symplify/coding-standard": "^0.1",
-        "phpunit/phpunit": "^5"
+        "symplify/coding-standard": "^8.3",
+        "phpunit/phpunit": "^8.5"
     },
     "autoload": {
         "psr-4": {
@@ -27,7 +28,7 @@
         }
     },
     "config": {
-        "platform": { "php": "7.0" },
+        "platform": { "php": "7.2" },
         "bin-dir": "bin"
     }
 }

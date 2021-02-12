@@ -3,16 +3,16 @@
 namespace Defr\Ares\Tests;
 
 use Defr\Ares;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 
-final class AresTest extends PHPUnit_Framework_TestCase
+final class AresTest extends TestCase
 {
     /**
      * @var Ares
      */
     private $ares;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->ares = new Ares();
     }
@@ -36,19 +36,15 @@ final class AresTest extends PHPUnit_Framework_TestCase
         $this->assertSame('00006947', $record->getCompanyId());
     }
 
-    /**
-     * @expectedException \Defr\Ares\AresException
-     */
     public function testFindByIdentificationNumberException()
     {
-        $this->ares->findByIdentificationNumber('A1234');
+        $this->expectException(\Defr\Ares\AresException::class);
+		$this->ares->findByIdentificationNumber('A1234');
     }
 
-    /**
-     * @expectedException \Defr\Ares\AresException
-     */
     public function testFindByEmptyStringException()
     {
+		$this->expectException(\Defr\Ares\AresException::class);
         $this->ares->findByIdentificationNumber('');
     }
 
@@ -59,18 +55,17 @@ final class AresTest extends PHPUnit_Framework_TestCase
         $this->assertGreaterThan(0, count($results));
     }
 
-    /**
-     * @expectedException \Defr\Ares\AresException
-     * @expectedExceptionMessage Nic nebylo nalezeno.
-     */
     public function testFindByNameNonExistentName()
     {
-        $this->ares->findByName('some non-existent company name');
+		$this->expectException(\Defr\Ares\AresException::class);
+		$this->expectExceptionMessage('Nic nebylo nalezeno.');
+
+		$this->ares->findByName('some non-existent company name');
     }
 
     public function testGetCompanyPeople()
     {
-        if ($this->isTravis()) {
+        if ($this->isCI()) {
             $this->markTestSkipped('Travis cannot connect to Justice.cz');
         }
 
@@ -82,6 +77,10 @@ final class AresTest extends PHPUnit_Framework_TestCase
 
     public function testBalancer()
     {
+		if ($this->isCI()) {
+			$this->markTestSkipped('Travis cannot connect to Justice.cz');
+		}
+
         $ares = new Ares();
         $ares->setBalancer('http://some.loadbalancer.domain');
         try {
@@ -99,7 +98,7 @@ final class AresTest extends PHPUnit_Framework_TestCase
     /**
      * @return bool
      */
-    private function isTravis()
+    private function isCI()
     {
         if (getenv('CI')) {
             return true;
