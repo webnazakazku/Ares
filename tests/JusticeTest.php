@@ -24,7 +24,7 @@ final class JusticeTest extends PHPUnit_Framework_TestCase
 
     public function testFindById()
     {
-        $justiceRecord = $this->justice->findById(27791394);
+        $justiceRecord = $this->justice->findById('27791394');
         $this->assertInstanceOf('Defr\Justice\JusticeRecord', $justiceRecord);
 
         $people = $justiceRecord->getPeople();
@@ -38,7 +38,7 @@ final class JusticeTest extends PHPUnit_Framework_TestCase
 
     public function testNotFoundFindId()
     {
-        $justiceRecord = $this->justice->findById(123456);
+        $justiceRecord = $this->justice->findById('123456');
         $this->assertFalse($justiceRecord);
     }
 

@@ -19,9 +19,9 @@ final class AresTest extends PHPUnit_Framework_TestCase
 
     public function testFindByIdentificationNumber()
     {
-        $record = $this->ares->findByIdentificationNumber(73263753);
+        $record = $this->ares->findByIdentificationNumber('73263753');
         $this->assertSame('Dennis Fridrich', $record->getCompanyName());
-        $this->assertSame('CZ8508095453', $record->getTaxId());
+        $this->assertSame('', $record->getTaxId());
         $this->assertSame('73263753', $record->getCompanyId());
         $this->assertEmpty($record->getStreet());
         $this->assertSame('15', $record->getStreetHouseNumber());
@@ -54,7 +54,7 @@ final class AresTest extends PHPUnit_Framework_TestCase
 
     public function testFindByName()
     {
-        $results = $this->ares->findByName('sever');
+        $results = $this->ares->findByName('Dennis Fridrich');
 
         $this->assertGreaterThan(0, count($results));
     }
@@ -74,8 +74,9 @@ final class AresTest extends PHPUnit_Framework_TestCase
             $this->markTestSkipped('Travis cannot connect to Justice.cz');
         }
 
-        $record = $this->ares->findByIdentificationNumber(27791394);
+        $record = $this->ares->findByIdentificationNumber('27791394');
         $companyPeople = $record->getCompanyPeople();
+
         $this->assertCount(2, $companyPeople);
     }
 
@@ -100,7 +101,7 @@ final class AresTest extends PHPUnit_Framework_TestCase
      */
     private function isTravis()
     {
-        if (getenv('TRAVIS_PHP_VERSION')) {
+        if (getenv('CI')) {
             return true;
         }
 

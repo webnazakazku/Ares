@@ -38,7 +38,7 @@ final class Justice
     }
 
     /**
-     * @param int $id
+     * @param string $id
      *
      * @throws SubjectNotFoundException
      *
@@ -46,7 +46,7 @@ final class Justice
      */
     public function findById($id)
     {
-        Assertion::integer($id);
+        Assertion::string($id);
 
         $crawler = $this->client->request('GET', sprintf(self::URL_SUBJECTS, $id));
         $detailUrl = $this->extractDetailUrlFromCrawler($crawler);

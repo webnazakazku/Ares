@@ -143,7 +143,7 @@ class Ares
         $url = $this->wrapUrl(sprintf(self::URL_BAS, $id));
 
         try {
-            $aresRequest = file_get_contents($url, null, stream_context_create($this->contextOptions));
+        	$aresRequest = file_get_contents($url, null, stream_context_create($this->contextOptions));
             if ($this->debug) {
                 file_put_contents($cachedRawFile, $aresRequest);
             }
@@ -186,7 +186,7 @@ class Ares
                 throw new AresException('Databáze ARES není dostupná.');
             }
         } catch (\Exception $e) {
-            throw new AresException($e->getMessage());
+			throw new AresException($e->getMessage());
         }
 
         file_put_contents($cachedFile, serialize($record));
