@@ -8,6 +8,7 @@ use Symfony\Component\DomCrawler\Crawler;
 
 final class JusticeJednatelPersonParser
 {
+
     /**
      * @param Crawler $crawler
      *

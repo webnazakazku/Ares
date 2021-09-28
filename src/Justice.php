@@ -12,6 +12,7 @@ use Symfony\Component\DomCrawler\Crawler;
 
 final class Justice
 {
+
     /**
      * @var string
      */
@@ -40,9 +41,9 @@ final class Justice
     /**
      * @param string $id
      *
+     * @return JusticeRecord|false
      * @throws SubjectNotFoundException
      *
-     * @return JusticeRecord|false
      */
     public function findById($id)
     {
@@ -94,6 +95,6 @@ final class Justice
             return false;
         }
 
-        return self::URL_BASE.$href[1];
+        return self::URL_BASE . $href[1];
     }
 }

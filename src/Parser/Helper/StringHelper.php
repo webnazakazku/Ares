@@ -4,6 +4,7 @@ namespace Webnazakazku\Parser\Helper;
 
 final class StringHelper
 {
+
     /**
      * @param string $text
      *

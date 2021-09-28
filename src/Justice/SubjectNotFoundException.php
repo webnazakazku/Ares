@@ -6,4 +6,5 @@ use Exception;
 
 final class SubjectNotFoundException extends Exception
 {
+
 }

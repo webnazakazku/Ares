@@ -8,6 +8,7 @@ use PHPUnit\Framework\TestCase;
 
 final class JusticeTest extends TestCase
 {
+
     /**
      * @var Justice
      */
@@ -42,15 +43,15 @@ final class JusticeTest extends TestCase
         $this->assertFalse($justiceRecord);
     }
 
-	/**
-	 * @return bool
-	 */
-	private function isCI()
-	{
-		if (getenv('CI')) {
-			return true;
-		}
+    /**
+     * @return bool
+     */
+    private function isCI()
+    {
+        if (getenv('CI')) {
+            return true;
+        }
 
-		return false;
-	}
+        return false;
+    }
 }

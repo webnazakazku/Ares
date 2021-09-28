@@ -9,4 +9,5 @@ namespace Webnazakazku\Ares;
  */
 class AresException extends \Exception
 {
+
 }

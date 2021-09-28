@@ -7,6 +7,7 @@ use PHPUnit\Framework\TestCase;
 
 final class AresTest extends TestCase
 {
+
     /**
      * @var Ares
      */
@@ -39,12 +40,12 @@ final class AresTest extends TestCase
     public function testFindByIdentificationNumberException()
     {
         $this->expectException(\Webnazakazku\Ares\AresException::class);
-		$this->ares->findByIdentificationNumber('A1234');
+        $this->ares->findByIdentificationNumber('A1234');
     }
 
     public function testFindByEmptyStringException()
     {
-		$this->expectException(\Webnazakazku\Ares\AresException::class);
+        $this->expectException(\Webnazakazku\Ares\AresException::class);
         $this->ares->findByIdentificationNumber('');
     }
 
@@ -57,10 +58,10 @@ final class AresTest extends TestCase
 
     public function testFindByNameNonExistentName()
     {
-		$this->expectException(\Webnazakazku\Ares\AresException::class);
-		$this->expectExceptionMessage('Nic nebylo nalezeno.');
+        $this->expectException(\Webnazakazku\Ares\AresException::class);
+        $this->expectExceptionMessage('Nic nebylo nalezeno.');
 
-		$this->ares->findByName('some non-existent company name');
+        $this->ares->findByName('some non-existent company name');
     }
 
     public function testGetCompanyPeople()
@@ -77,9 +78,9 @@ final class AresTest extends TestCase
 
     public function testBalancer()
     {
-		if ($this->isCI()) {
-			$this->markTestSkipped('GitHun Actions cannot connect to Justice.cz');
-		}
+        if ($this->isCI()) {
+            $this->markTestSkipped('GitHun Actions cannot connect to Justice.cz');
+        }
 
         $ares = new Ares();
         $ares->setBalancer('http://some.loadbalancer.domain');
@@ -90,7 +91,7 @@ final class AresTest extends TestCase
         }
         $this->assertEquals(
             'http://some.loadbalancer.domain'
-            .'?url=http%3A%2F%2Fwwwinfo.mfcr.cz%2Fcgi-bin%2Fares%2Fdarv_bas.cgi%3Fico%3D26168685',
+            . '?url=http%3A%2F%2Fwwwinfo.mfcr.cz%2Fcgi-bin%2Fares%2Fdarv_bas.cgi%3Fico%3D26168685',
             $ares->getLastUrl()
         );
     }

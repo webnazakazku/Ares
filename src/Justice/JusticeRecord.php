@@ -6,6 +6,7 @@ use Webnazakazku\ValueObject\Person;
 
 final class JusticeRecord
 {
+
     /**
      * @var array|Person[]
      */

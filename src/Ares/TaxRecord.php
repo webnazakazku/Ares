@@ -9,6 +9,7 @@ namespace Webnazakazku\Ares;
  */
 class TaxRecord
 {
+
     /**
      * @var string
      */

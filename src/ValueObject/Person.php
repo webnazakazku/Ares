@@ -7,6 +7,7 @@ use DateTimeInterface;
 
 final class Person
 {
+
     /**
      * @var string
      */

@@ -16,9 +16,13 @@ use InvalidArgumentException;
  */
 class Ares
 {
+
     const URL_BAS = 'http://wwwinfo.mfcr.cz/cgi-bin/ares/darv_bas.cgi?ico=%s';
+
     const URL_RES = 'http://wwwinfo.mfcr.cz/cgi-bin/ares/darv_res.cgi?ICO=%s';
+
     const URL_TAX = 'http://wwwinfo.mfcr.cz/cgi-bin/ares/ares_es.cgi?ico=%s&filtr=0';
+
     const URL_FIND = 'http://wwwinfo.mfcr.cz/cgi-bin/ares/ares_es.cgi?obch_jm=%s&obec=%s&filtr=0';
 
     /**
@@ -70,7 +74,7 @@ class Ares
             $this->balancer = $balancer;
         }
 
-        $this->cacheDir = $cacheDir.'/ares';
+        $this->cacheDir = $cacheDir . '/ares';
         $this->debug = $debug;
 
         // Create cache dirs if they doesn't exist
@@ -118,10 +122,10 @@ class Ares
     /**
      * @param $id
      *
-     * @throws InvalidArgumentException
+     * @return AresRecord
      * @throws Ares\AresException
      *
-     * @return AresRecord
+     * @throws InvalidArgumentException
      */
     public function findByIdentificationNumber($id)
     {
@@ -132,9 +136,9 @@ class Ares
             throw new AresException('IČ firmy musí být zadáno.');
         }
 
-        $cachedFileName = $id.'_'.date($this->cacheStrategy).'.php';
-        $cachedFile = $this->cacheDir.'/bas_'.$cachedFileName;
-        $cachedRawFile = $this->cacheDir.'/bas_raw_'.$cachedFileName;
+        $cachedFileName = $id . '_' . date($this->cacheStrategy) . '.php';
+        $cachedFile = $this->cacheDir . '/bas_' . $cachedFileName;
+        $cachedRawFile = $this->cacheDir . '/bas_raw_' . $cachedFileName;
 
         if (is_file($cachedFile)) {
             return unserialize(file_get_contents($cachedFile));
@@ -144,7 +148,7 @@ class Ares
         $url = $this->wrapUrl(sprintf(self::URL_BAS, $id));
 
         try {
-        	$aresRequest = file_get_contents($url, null, stream_context_create($this->contextOptions));
+            $aresRequest = file_get_contents($url, null, stream_context_create($this->contextOptions));
             if ($this->debug) {
                 file_put_contents($cachedRawFile, $aresRequest);
             }
@@ -175,9 +179,9 @@ class Ares
                 }
 
                 if (strval($elements->AA->N) === 'Praha') { //Praha
-                    $record->setTown(strval($elements->AA->NMC).' - '.strval($elements->AA->NCO));
+                    $record->setTown(strval($elements->AA->NMC) . ' - ' . strval($elements->AA->NCO));
                 } elseif (strval($elements->AA->NCO) !== strval($elements->AA->N)) { //Ostrava
-                    $record->setTown(strval($elements->AA->N).' - '.strval($elements->AA->NCO));
+                    $record->setTown(strval($elements->AA->N) . ' - ' . strval($elements->AA->NCO));
                 } else {
                     $record->setTown(strval($elements->AA->N));
                 }
@@ -187,7 +191,7 @@ class Ares
                 throw new AresException('Databáze ARES není dostupná.');
             }
         } catch (\Exception $e) {
-			throw new AresException($e->getMessage());
+            throw new AresException($e->getMessage());
         }
 
         file_put_contents($cachedFile, serialize($record));
@@ -198,10 +202,10 @@ class Ares
     /**
      * @param $id
      *
-     * @throws InvalidArgumentException
+     * @return AresRecord
      * @throws Ares\AresException
      *
-     * @return AresRecord
+     * @throws InvalidArgumentException
      */
     public function findInResById($id)
     {
@@ -211,9 +215,9 @@ class Ares
         // Sestaveni URL
         $url = $this->wrapUrl(sprintf(self::URL_RES, $id));
 
-        $cachedFileName = $id.'_'.date($this->cacheStrategy).'.php';
-        $cachedFile = $this->cacheDir.'/res_'.$cachedFileName;
-        $cachedRawFile = $this->cacheDir.'/res_raw_'.$cachedFileName;
+        $cachedFileName = $id . '_' . date($this->cacheStrategy) . '.php';
+        $cachedFile = $this->cacheDir . '/res_' . $cachedFileName;
+        $cachedRawFile = $this->cacheDir . '/res_raw_' . $cachedFileName;
 
         if (is_file($cachedFile)) {
             return unserialize(file_get_contents($cachedFile));
@@ -258,10 +262,10 @@ class Ares
     /**
      * @param $id
      *
-     * @throws InvalidArgumentException
+     * @return string
      * @throws \Exception
      *
-     * @return string
+     * @throws InvalidArgumentException
      */
     public function findVatById($id)
     {
@@ -272,9 +276,9 @@ class Ares
         // Sestaveni URL
         $url = $this->wrapUrl(sprintf(self::URL_TAX, $id));
 
-        $cachedFileName = $id.'_'.date($this->cacheStrategy).'.php';
-        $cachedFile = $this->cacheDir.'/tax_'.$cachedFileName;
-        $cachedRawFile = $this->cacheDir.'/tax_raw_'.$cachedFileName;
+        $cachedFileName = $id . '_' . date($this->cacheStrategy) . '.php';
+        $cachedFile = $this->cacheDir . '/tax_' . $cachedFileName;
+        $cachedRawFile = $this->cacheDir . '/tax_raw_' . $cachedFileName;
 
         if (is_file($cachedFile)) {
             return unserialize(file_get_contents($cachedFile));
@@ -313,10 +317,10 @@ class Ares
      * @param string $name
      * @param null   $city
      *
-     * @throws InvalidArgumentException
+     * @return array|AresRecord[]|AresRecords
      * @throws AresException
      *
-     * @return array|AresRecord[]|AresRecords
+     * @throws InvalidArgumentException
      */
     public function findByName($name, $city = null)
     {
@@ -330,9 +334,9 @@ class Ares
             urlencode(Lib::stripDiacritics($city))
         ));
 
-        $cachedFileName = date($this->cacheStrategy).'_'.md5($name.$city).'.php';
-        $cachedFile = $this->cacheDir.'/find_'.$cachedFileName;
-        $cachedRawFile = $this->cacheDir.'/find_raw_'.$cachedFileName;
+        $cachedFileName = date($this->cacheStrategy) . '_' . md5($name . $city) . '.php';
+        $cachedFile = $this->cacheDir . '/find_' . $cachedFileName;
+        $cachedRawFile = $this->cacheDir . '/find_raw_' . $cachedFileName;
 
         if (is_file($cachedFile)) {
             return unserialize(file_get_contents($cachedFile));

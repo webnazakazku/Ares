@@ -11,6 +11,7 @@ use ArrayIterator;
  */
 final class AresRecords implements \ArrayAccess, \IteratorAggregate, \Countable
 {
+
     /**
      * @var AresRecord[]
      */
@@ -45,7 +46,7 @@ final class AresRecords implements \ArrayAccess, \IteratorAggregate, \Countable
     }
 
     /**
-     * @param mixed $offset
+     * @param mixed      $offset
      * @param AresRecord $value
      */
     public function offsetSet($offset, $value)

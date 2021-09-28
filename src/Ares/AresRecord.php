@@ -14,6 +14,7 @@ use GuzzleHttp\Client as GuzzleClient;
  */
 class AresRecord
 {
+
     /**
      * @var int
      */
@@ -80,7 +81,8 @@ class AresRecord
         $streetOrientationNumber = null,
         $town = null,
         $zip = null
-    ) {
+    )
+    {
         $this->companyId = $companyId;
         $this->taxId = !empty($taxId) ? $taxId : null;
         $this->companyName = $companyName;
@@ -96,10 +98,10 @@ class AresRecord
      */
     public function getStreetWithNumbers()
     {
-        return $this->street.' '
-            .($this->streetOrientationNumber
+        return $this->street . ' '
+            . ($this->streetOrientationNumber
                 ?
-                $this->streetHouseNumber.'/'.$this->streetOrientationNumber
+                $this->streetHouseNumber . '/' . $this->streetOrientationNumber
                 :
                 $this->streetHouseNumber);
     }
