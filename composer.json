@@ -19,7 +19,7 @@
         "php": ">=7.2.0",
         "beberlei/assert": "^2.4|^3.0",
         "dfridrich/library": "^1.0",
-        "fabpot/goutte": "^2.0|^3.0",
+        "fabpot/goutte": "^2.0|^3.0|^4.0",
         "guzzlehttp/guzzle": "^6.5"
     },
     "require-dev": {
