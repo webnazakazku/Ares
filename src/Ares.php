@@ -1,11 +1,12 @@
 <?php
 
-namespace Defr;
+namespace Webnazakazku;
 
-use Defr\Ares\AresException;
-use Defr\Ares\AresRecord;
-use Defr\Ares\AresRecords;
-use Defr\Ares\TaxRecord;
+use Defr\Lib;
+use Webnazakazku\Ares\AresException;
+use Webnazakazku\Ares\AresRecord;
+use Webnazakazku\Ares\AresRecords;
+use Webnazakazku\Ares\TaxRecord;
 use InvalidArgumentException;
 
 /**
@@ -69,7 +70,7 @@ class Ares
             $this->balancer = $balancer;
         }
 
-        $this->cacheDir = $cacheDir.'/defr/ares';
+        $this->cacheDir = $cacheDir.'/ares';
         $this->debug = $debug;
 
         // Create cache dirs if they doesn't exist

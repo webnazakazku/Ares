@@ -1,6 +1,6 @@
 <?php
 
-namespace Defr\Justice;
+namespace Webnazakazku\Justice;
 
 use Exception;
 

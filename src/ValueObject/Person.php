@@ -1,6 +1,6 @@
 <?php
 
-namespace Defr\ValueObject;
+namespace Webnazakazku\ValueObject;
 
 use DateTime;
 use DateTimeInterface;

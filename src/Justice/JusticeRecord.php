@@ -1,8 +1,8 @@
 <?php
 
-namespace Defr\Justice;
+namespace Webnazakazku\Justice;
 
-use Defr\ValueObject\Person;
+use Webnazakazku\ValueObject\Person;
 
 final class JusticeRecord
 {

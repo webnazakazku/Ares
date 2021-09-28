@@ -1,9 +1,9 @@
 <?php
 
-namespace Defr\Parser;
+namespace Webnazakazku\Parser;
 
-use Defr\Parser\Helper\StringHelper;
-use Defr\ValueObject\Person;
+use Webnazakazku\Parser\Helper\StringHelper;
+use Webnazakazku\ValueObject\Person;
 use Symfony\Component\DomCrawler\Crawler;
 
 final class JusticeJednatelPersonParser

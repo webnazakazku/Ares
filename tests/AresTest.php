@@ -1,8 +1,8 @@
 <?php
 
-namespace Defr\Ares\Tests;
+namespace Tests;
 
-use Defr\Ares;
+use Webnazakazku\Ares;
 use PHPUnit\Framework\TestCase;
 
 final class AresTest extends TestCase
@@ -38,13 +38,13 @@ final class AresTest extends TestCase
 
     public function testFindByIdentificationNumberException()
     {
-        $this->expectException(\Defr\Ares\AresException::class);
+        $this->expectException(\Webnazakazku\Ares\AresException::class);
 		$this->ares->findByIdentificationNumber('A1234');
     }
 
     public function testFindByEmptyStringException()
     {
-		$this->expectException(\Defr\Ares\AresException::class);
+		$this->expectException(\Webnazakazku\Ares\AresException::class);
         $this->ares->findByIdentificationNumber('');
     }
 
@@ -57,7 +57,7 @@ final class AresTest extends TestCase
 
     public function testFindByNameNonExistentName()
     {
-		$this->expectException(\Defr\Ares\AresException::class);
+		$this->expectException(\Webnazakazku\Ares\AresException::class);
 		$this->expectExceptionMessage('Nic nebylo nalezeno.');
 
 		$this->ares->findByName('some non-existent company name');
@@ -78,7 +78,7 @@ final class AresTest extends TestCase
     public function testBalancer()
     {
 		if ($this->isCI()) {
-			$this->markTestSkipped('Travis cannot connect to Justice.cz');
+			$this->markTestSkipped('GitHun Actions cannot connect to Justice.cz');
 		}
 
         $ares = new Ares();

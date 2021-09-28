@@ -1,6 +1,6 @@
 <?php
 
-namespace Defr\Parser;
+namespace Webnazakazku\Parser;
 
 use DateTime;
 use DateTimeInterface;

@@ -1,6 +1,6 @@
 <?php
 
-namespace Defr\Ares;
+namespace Webnazakazku\Ares;
 
 use ArrayIterator;
 

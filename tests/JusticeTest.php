@@ -1,8 +1,8 @@
 <?php
 
-namespace Defr\Tests;
+namespace Tests;
 
-use Defr\Justice;
+use Webnazakazku\Justice;
 use Goutte\Client;
 use PHPUnit\Framework\TestCase;
 
@@ -25,7 +25,7 @@ final class JusticeTest extends TestCase
     public function testFindById()
     {
         $justiceRecord = $this->justice->findById('27791394');
-        $this->assertInstanceOf('Defr\Justice\JusticeRecord', $justiceRecord);
+        $this->assertInstanceOf('Webnazakazku\Justice\JusticeRecord', $justiceRecord);
 
         $people = $justiceRecord->getPeople();
         $this->assertCount(2, $people);

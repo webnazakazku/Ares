@@ -1,12 +1,12 @@
 <?php
 
-namespace Defr;
+namespace Webnazakazku;
 
 use Assert\Assertion;
-use Defr\Justice\JusticeRecord;
-use Defr\Justice\SubjectNotFoundException;
-use Defr\Parser\JusticeJednatelPersonParser;
-use Defr\Parser\JusticeSpolecnikPersonParser;
+use Webnazakazku\Justice\JusticeRecord;
+use Webnazakazku\Justice\SubjectNotFoundException;
+use Webnazakazku\Parser\JusticeJednatelPersonParser;
+use Webnazakazku\Parser\JusticeSpolecnikPersonParser;
 use Goutte\Client;
 use Symfony\Component\DomCrawler\Crawler;
 

@@ -1,9 +1,9 @@
 <?php
 
-namespace Defr\Ares;
+namespace Webnazakazku\Ares;
 
-use Defr\Justice;
-use Defr\ValueObject\Person;
+use Webnazakazku\Justice;
+use Webnazakazku\ValueObject\Person;
 use Goutte\Client as GouteClient;
 use GuzzleHttp\Client as GuzzleClient;
 
