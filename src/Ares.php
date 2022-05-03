@@ -181,6 +181,8 @@ class Ares
                 //Put town or part of town as street if there is no street to prevent just house number as street
                 } else if (strval($elements->AA->NCO)) {
                     $record->setStreet(strval($elements->AA->NCO)); 
+                } else if (strval($elements->AA->N)) {
+                    $record->setStreet(strval($elements->AA->N)); 
                 }
 
                 if (strval($elements->AA->CO)) {
