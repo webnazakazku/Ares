@@ -221,7 +221,16 @@ class Ares
                     AND !$townAlreadyContainsArea
                     ) 
                 { //Ostrava
-                    $record->setTown(strval($elements->AA->N) . ' - ' . strval($elements->AA->NCO));
+                    //Prevents duplication in town like "České Budějovice - České Budějovice 3"
+                    $areaBeginsWithTown = false;
+                    if (substr(strval($elements->AA->NCO), 0, strlen(strval($elements->AA->N))) === strval($elements->AA->N)) {
+                        $areaBeginsWithTown = true;
+                    }
+                    if (!$areaBeginsWithTown) {
+                        $record->setTown(strval($elements->AA->N) . ' - ' . strval($elements->AA->NCO));
+                    } else {
+                        $record->setTown(strval($elements->AA->NCO));
+                    }
                 } else {
                     $record->setTown(strval($elements->AA->N));
                 }
