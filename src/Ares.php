@@ -210,11 +210,18 @@ class Ares
                 }
 
                 if (strval($elements->AA->N) === 'Praha') { //Praha
-                    if (!$townAlreadyContainsArea) {
-                        $record->setTown(strval($elements->AA->NMC) . ' - ' . strval($elements->AA->NCO));
+
+                    //If Praha is not mentioned in NMC, which happens, albeit rarely. Whithout this the town result would look like " - Vinohrady"
+                    if (strpos(strval($elements->AA->NMC), 'Praha') === false) {
+                        $record->setTown(strval($elements->AA->N) . ' - ' . strval($elements->AA->NCO));
                     } else {
-                        $record->setTown(strval($elements->AA->NMC));
+                        if (!$townAlreadyContainsArea) {
+                            $record->setTown(strval($elements->AA->NMC) . ' - ' . strval($elements->AA->NCO));
+                        } else {
+                            $record->setTown(strval($elements->AA->NMC));
+                        }
                     }
+                    
                 } elseif (
                     !empty(strval($elements->AA->NCO)) 
                     AND strval($elements->AA->NCO) !== strval($elements->AA->N) 
