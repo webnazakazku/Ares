@@ -1,5 +1,5 @@
 {
-    "name": "webnazakazku/ares",
+    "name": "sunkaflek/ares",
     "type": "library",
     "description": "Communication with ARES (Czech business register)",
     "keywords": ["php", "ares"],
@@ -28,7 +28,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Webnazakazku\\": "src/"
+            "sunkaflek\\": "src/"
         }
     },
     "config": {
