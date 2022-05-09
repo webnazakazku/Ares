@@ -26,7 +26,7 @@ final class JusticeTest extends TestCase
     public function testFindById()
     {
         $justiceRecord = $this->justice->findById('27791394');
-        $this->assertInstanceOf('Webnazakazku\Justice\JusticeRecord', $justiceRecord);
+        $this->assertInstanceOf('Sunkaflek\Justice\JusticeRecord', $justiceRecord);
 
         $people = $justiceRecord->getPeople();
         $this->assertCount(2, $people);

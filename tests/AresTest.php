@@ -39,13 +39,13 @@ final class AresTest extends TestCase
 
     public function testFindByIdentificationNumberException()
     {
-        $this->expectException(\Webnazakazku\Ares\AresException::class);
+        $this->expectException(\Sunkaflek\Ares\AresException::class);
         $this->ares->findByIdentificationNumber('A1234');
     }
 
     public function testFindByEmptyStringException()
     {
-        $this->expectException(\Webnazakazku\Ares\AresException::class);
+        $this->expectException(\Sunkaflek\Ares\AresException::class);
         $this->ares->findByIdentificationNumber('');
     }
 
@@ -58,7 +58,7 @@ final class AresTest extends TestCase
 
     public function testFindByNameNonExistentName()
     {
-        $this->expectException(\Webnazakazku\Ares\AresException::class);
+        $this->expectException(\Sunkaflek\Ares\AresException::class);
         $this->expectExceptionMessage('Nic nebylo nalezeno.');
 
         $this->ares->findByName('some non-existent company name');
