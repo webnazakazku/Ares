@@ -1,12 +1,12 @@
 <?php
 
-namespace Webnazakazku;
+namespace Sunkaflek;
 
 use Defr\Lib;
-use Webnazakazku\Ares\AresException;
-use Webnazakazku\Ares\AresRecord;
-use Webnazakazku\Ares\AresRecords;
-use Webnazakazku\Ares\TaxRecord;
+use Sunkaflek\Ares\AresException;
+use Sunkaflek\Ares\AresRecord;
+use Sunkaflek\Ares\AresRecords;
+use Sunkaflek\Ares\TaxRecord;
 use InvalidArgumentException;
 
 /**

@@ -2,7 +2,7 @@
 
 namespace Tests;
 
-use Webnazakazku\Ares;
+use Sunkaflek\Ares;
 use PHPUnit\Framework\TestCase;
 
 final class AresTest extends TestCase

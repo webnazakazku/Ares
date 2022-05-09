@@ -2,7 +2,7 @@
 
 namespace Tests;
 
-use Webnazakazku\Justice;
+use Sunkaflek\Justice;
 use Goutte\Client;
 use PHPUnit\Framework\TestCase;
 

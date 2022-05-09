@@ -1,6 +1,6 @@
 <?php
 
-namespace Webnazakazku\Parser;
+namespace Sunkaflek\Parser;
 
 use DateTime;
 use DateTimeInterface;

@@ -1,6 +1,6 @@
 <?php
 
-namespace Webnazakazku\Justice;
+namespace Sunkaflek\Justice;
 
 use Exception;
 

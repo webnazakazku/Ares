@@ -1,8 +1,8 @@
 <?php
 
-namespace Webnazakazku\Justice;
+namespace Sunkaflek\Justice;
 
-use Webnazakazku\ValueObject\Person;
+use Sunkaflek\ValueObject\Person;
 
 final class JusticeRecord
 {
