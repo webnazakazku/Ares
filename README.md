@@ -9,7 +9,7 @@ Communication with ARES & Justice (Czech business registers).
 ## Installation
 
 ```sh
-composer require webnazakazku/ares
+composer require sunkaflek/ares
 ```
 
 ## Usage
@@ -18,7 +18,7 @@ composer require webnazakazku/ares
 <?php
 require __DIR__.'/vendor/autoload.php';
 
-use Webnazakazku\Ares;
+use Sunkaflek\Ares;
 
 $ares = new Ares();
 
