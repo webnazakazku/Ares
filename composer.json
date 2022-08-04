@@ -16,11 +16,11 @@
         }
     ],
     "require": {
-        "php": ">=7.2.0",
+        "php": ">=5.5",
         "beberlei/assert": "^2.4|^3.0",
         "dfridrich/library": "^1.0",
         "fabpot/goutte": "^2.0|^3.0|^4.0",
-        "guzzlehttp/guzzle": "^6.5|^7.0"
+        "guzzlehttp/guzzle": "^6.0|^7.0"
     },
     "require-dev": {
         "symplify/coding-standard": "^8.3",
