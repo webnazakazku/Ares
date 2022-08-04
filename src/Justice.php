@@ -1,12 +1,12 @@
 <?php
 
-namespace Webnazakazku;
+namespace Sunkaflek;
 
 use Assert\Assertion;
-use Webnazakazku\Justice\JusticeRecord;
-use Webnazakazku\Justice\SubjectNotFoundException;
-use Webnazakazku\Parser\JusticeJednatelPersonParser;
-use Webnazakazku\Parser\JusticeSpolecnikPersonParser;
+use Sunkaflek\Justice\JusticeRecord;
+use Sunkaflek\Justice\SubjectNotFoundException;
+use Sunkaflek\Parser\JusticeJednatelPersonParser;
+use Sunkaflek\Parser\JusticeSpolecnikPersonParser;
 use Goutte\Client;
 use Symfony\Component\DomCrawler\Crawler;
 

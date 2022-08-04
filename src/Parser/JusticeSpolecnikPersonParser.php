@@ -1,9 +1,9 @@
 <?php
 
-namespace Webnazakazku\Parser;
+namespace Sunkaflek\Parser;
 
-use Webnazakazku\Parser\Helper\StringHelper;
-use Webnazakazku\ValueObject\Person;
+use Sunkaflek\Parser\Helper\StringHelper;
+use Sunkaflek\ValueObject\Person;
 use Symfony\Component\DomCrawler\Crawler;
 
 final class JusticeSpolecnikPersonParser

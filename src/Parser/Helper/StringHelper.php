@@ -1,6 +1,6 @@
 <?php
 
-namespace Webnazakazku\Parser\Helper;
+namespace Sunkaflek\Parser\Helper;
 
 final class StringHelper
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace Webnazakazku\ValueObject;
+namespace Sunkaflek\ValueObject;
 
 use DateTime;
 use DateTimeInterface;

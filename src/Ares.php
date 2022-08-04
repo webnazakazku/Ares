@@ -1,12 +1,12 @@
 <?php
 
-namespace Webnazakazku;
+namespace Sunkaflek;
 
 use Defr\Lib;
-use Webnazakazku\Ares\AresException;
-use Webnazakazku\Ares\AresRecord;
-use Webnazakazku\Ares\AresRecords;
-use Webnazakazku\Ares\TaxRecord;
+use Sunkaflek\Ares\AresException;
+use Sunkaflek\Ares\AresRecord;
+use Sunkaflek\Ares\AresRecords;
+use Sunkaflek\Ares\TaxRecord;
 use InvalidArgumentException;
 
 /**
@@ -168,20 +168,78 @@ class Ares
 
                 $record->setCompanyId(strval($elements->ICO));
                 $record->setTaxId(strval($elements->DIC));
-                $record->setCompanyName(strval($elements->OF));
-                $record->setStreet(strval($elements->AA->NU));
+
+                //prevent company names in quotes
+                if (substr(strval($elements->OF), 0, 1) === '"' AND substr(strval($elements->OF), -1) ==='"') {
+                    $record->setCompanyName(substr(strval($elements->OF),1,-1));
+                } else {
+                    $record->setCompanyName(strval($elements->OF));
+                }
+                
+                if (strval($elements->AA->NU)) {
+                    $record->setStreet(strval($elements->AA->NU));
+                //Put town or part of town as street if there is no street to prevent just house number as street
+                } else if (strval($elements->AA->NCO)) {
+                    $record->setStreet(strval($elements->AA->NCO)); 
+                } else if (strval($elements->AA->N)) {
+                    $record->setStreet(strval($elements->AA->N)); 
+                }
 
                 if (strval($elements->AA->CO)) {
                     $record->setStreetHouseNumber(strval($elements->AA->CD));
                     $record->setStreetOrientationNumber(strval($elements->AA->CO));
-                } else {
+                } else if (strval($elements->AA->CD)){
                     $record->setStreetHouseNumber(strval($elements->AA->CD));
+                } else {
+                    $record->setStreetHouseNumber(strval($elements->AA->CA));
+                }
+
+                //Prevents doubling town area (like "Praha-Libuš - Libuš" or "Brandýs nad Labem-Stará Boleslav - Brandýs nad Labem"
+                $townAlreadyContainsArea = false;
+                if (
+                    strval($elements->AA->N) === 'Praha' 
+                    AND !empty(strval($elements->AA->NCO)) 
+                    AND strpos(strval($elements->AA->NMC), strval($elements->AA->NCO)) !== false
+                   ) 
+                {
+                    $townAlreadyContainsArea = true;
+                } else if (
+                    !empty(strval($elements->AA->NCO)) 
+                    AND strpos(strval($elements->AA->N), strval($elements->AA->NCO)) !== false
+                ) 
+                {
+                    $townAlreadyContainsArea = true;
                 }
 
                 if (strval($elements->AA->N) === 'Praha') { //Praha
-                    $record->setTown(strval($elements->AA->NMC) . ' - ' . strval($elements->AA->NCO));
-                } elseif (strval($elements->AA->NCO) !== strval($elements->AA->N)) { //Ostrava
-                    $record->setTown(strval($elements->AA->N) . ' - ' . strval($elements->AA->NCO));
+
+                    //If Praha is not mentioned in NMC, which happens, albeit rarely. Whithout this the town result would look like " - Vinohrady"
+                    if (strpos(strval($elements->AA->NMC), 'Praha') === false) {
+                        $record->setTown(strval($elements->AA->N) . ' - ' . strval($elements->AA->NCO));
+                    } else {
+                        if (!$townAlreadyContainsArea) {
+                            $record->setTown(strval($elements->AA->NMC) . ' - ' . strval($elements->AA->NCO));
+                        } else {
+                            $record->setTown(strval($elements->AA->NMC));
+                        }
+                    }
+                    
+                } elseif (
+                    !empty(strval($elements->AA->NCO)) 
+                    AND strval($elements->AA->NCO) !== strval($elements->AA->N) 
+                    AND !$townAlreadyContainsArea
+                    ) 
+                { //Ostrava
+                    //Prevents duplication in town like "České Budějovice - České Budějovice 3"
+                    $areaBeginsWithTown = false;
+                    if (substr(strval($elements->AA->NCO), 0, strlen(strval($elements->AA->N))) === strval($elements->AA->N)) {
+                        $areaBeginsWithTown = true;
+                    }
+                    if (!$areaBeginsWithTown) {
+                        $record->setTown(strval($elements->AA->N) . ' - ' . strval($elements->AA->NCO));
+                    } else {
+                        $record->setTown(strval($elements->AA->NCO));
+                    }
                 } else {
                     $record->setTown(strval($elements->AA->N));
                 }

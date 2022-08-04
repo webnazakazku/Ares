@@ -1,6 +1,6 @@
 <?php
 
-namespace Webnazakazku\Ares;
+namespace Sunkaflek\Ares;
 
 /**
  * Class TaxRecord.
