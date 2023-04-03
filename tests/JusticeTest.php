@@ -1,14 +1,13 @@
 <?php
 
-namespace Tests;
-
-use Webnazakazku\Justice;
 use Goutte\Client;
 use PHPUnit\Framework\TestCase;
+use Webnazakazku\Justice;
+use Webnazakazku\Parser\PersonParser;
+use Webnazakazku\ValueObject\Person;
 
 final class JusticeTest extends TestCase
 {
-
     /**
      * @var Justice
      */
@@ -16,42 +15,40 @@ final class JusticeTest extends TestCase
 
     protected function setUp(): void
     {
-        if ($this->isCI()) {
-            $this->markTestSkipped('Travis cannot connect to Justice.cz');
-        }
-
         $this->justice = new Justice(new Client());
     }
 
-    public function testFindById()
+    public function testFindById(): void
     {
-        $justiceRecord = $this->justice->findById('27791394');
+        $justiceRecord = $this->justice->findById(27791394);
         $this->assertInstanceOf('Webnazakazku\Justice\JusticeRecord', $justiceRecord);
 
+        /** @var Person[] $people */
         $people = $justiceRecord->getPeople();
-        $this->assertCount(2, $people);
+        $this->assertCount(3, $people);
 
-        $this->assertArrayHasKey('Mgr. ROBERT RUNTÁK', $people);
-        $person = $people['Mgr. ROBERT RUNTÁK'];
-        $this->assertInstanceOf('DateTime', $person->getBirthday());
-        $this->assertIsString($person->getAddress());
+        $this->assertSame($people[0]->getName(), 'DENNIS FRIDRICH');
+        $this->assertEquals($people[0]->getBirthday(), new DateTimeImmutable('1985-08-09'));
+        $this->assertEquals($people[0]->getRegistered(), new DateTimeImmutable('2017-07-03'));
+        $this->assertSame($people[0]->getAddress(), 'Obděnice 15, 262 55 Petrovice');
+        $this->assertNull($people[0]->getDeleted());
+        $this->assertSame($people[0]->getType(), PersonParser::EXECUTIVE);
+
+        $this->assertSame($people[1]->getName(), 'DENNIS FRIDRICH');
+        $this->assertSame($people[2]->getName(), 'Mgr. ROBERT RUNTÁK');
+
+        $this->assertFalse($justiceRecord->isInsolvencyRecord());
+        $this->assertFalse($justiceRecord->isExecutionRecord());
+
+        $justiceRecord = $this->justice->findById(26823357);
+        $this->assertTrue($justiceRecord->isInsolvencyRecord());
+        $this->assertFalse($justiceRecord->isExecutionRecord());
     }
 
-    public function testNotFoundFindId()
+    public function testNotFoundFindId(): void
     {
-        $justiceRecord = $this->justice->findById('123456');
+        $justiceRecord = $this->justice->findById(123456);
         $this->assertFalse($justiceRecord);
     }
 
-    /**
-     * @return bool
-     */
-    private function isCI()
-    {
-        if (getenv('CI')) {
-            return true;
-        }
-
-        return false;
-    }
 }
