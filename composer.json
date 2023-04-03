@@ -17,7 +17,8 @@
         "dfridrich/library": "^1.37.14",
         "ext-simplexml": "*",
         "fabpot/goutte": "^4.0",
-        "symfony/string": "^4|^5|^6"
+        "symfony/dom-crawler": "^5.1|^6.0",
+        "symfony/string": "^5.1|^6.0"
     },
     "require-dev": {
         "symplify/coding-standard": "^8",
