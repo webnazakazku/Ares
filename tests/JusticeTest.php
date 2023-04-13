@@ -1,7 +1,7 @@
 <?php
 
-use Goutte\Client;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\BrowserKit\HttpBrowser;
 use Webnazakazku\Justice;
 use Webnazakazku\Parser\PersonParser;
 use Webnazakazku\ValueObject\Person;
@@ -15,7 +15,7 @@ final class JusticeTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->justice = new Justice(new Client());
+        $this->justice = new Justice(new HttpBrowser());
     }
 
     public function testFindById(): void

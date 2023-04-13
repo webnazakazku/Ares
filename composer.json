@@ -16,12 +16,14 @@
         "beberlei/assert": "^2.4|^3.0",
         "dfridrich/library": "^1.37.14",
         "ext-simplexml": "*",
-        "fabpot/goutte": "^4.0",
         "symfony/dom-crawler": "^5.1|^6.0",
+        "symfony/http-client": "^5.1|^6.0",
         "symfony/string": "^5.1|^6.0"
     },
     "require-dev": {
         "symplify/coding-standard": "^8",
+        "symfony/browser-kit": "^5.1|^6.0",
+        "symfony/css-selector": "^5.1|^6.0",
         "phpunit/phpunit": "^9"
     },
     "autoload": {

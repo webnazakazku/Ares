@@ -2,7 +2,7 @@
 
 namespace Webnazakazku\Ares;
 
-use Goutte\Client as GouteClient;
+use Symfony\Component\BrowserKit\HttpBrowser;
 use Webnazakazku\Justice;
 
 /**
@@ -74,7 +74,7 @@ class AresRecord
     private $justiceRecord;
 
     /**
-     * @var null|GouteClient
+     * @var null|HttpBrowser
      */
     protected $client;
 
@@ -164,7 +164,7 @@ class AresRecord
         return $this->zip;
     }
 
-    public function setClient(GouteClient $client)
+    public function setClient(HttpBrowser $client)
     {
         $this->client = $client;
 
@@ -174,7 +174,7 @@ class AresRecord
     public function getClient()
     {
         if (!$this->client) {
-            $this->client = new GouteClient();
+            $this->client = new HttpBrowser();
         }
 
         return $this->client;

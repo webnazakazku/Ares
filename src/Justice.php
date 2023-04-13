@@ -3,7 +3,7 @@
 namespace Webnazakazku;
 
 use Assert\Assertion;
-use Goutte\Client;
+use Symfony\Component\BrowserKit\HttpBrowser;
 use Symfony\Component\DomCrawler\Crawler;
 use Webnazakazku\Justice\JusticeRecord;
 use Webnazakazku\Justice\SubjectNotFoundException;
@@ -22,16 +22,16 @@ final class Justice
     const URL_SUBJECTS = 'https://or.justice.cz/ias/ui/rejstrik-$firma?ico=%d';
 
     /**
-     * @var Client
+     * @var HttpBrowser
      */
     private $client;
 
     /**
      * Justice constructor.
      *
-     * @param Client $client
+     * @param HttpBrowser $client
      */
-    public function __construct(Client $client)
+    public function __construct(HttpBrowser $client)
     {
         $this->client = $client;
     }
