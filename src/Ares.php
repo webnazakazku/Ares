@@ -214,13 +214,19 @@ class Ares
 				if ($street === '') {
 					$street = $aresResponse->sidlo->nazevCastiObce ?? '';
 				}
+                if ($street === '') {
+                    $street = $aresResponse->sidlo->nazevObce ?? '';
+                }
+
+                $cisloDomovni = $aresResponse->sidlo->cisloDomovni ?? '';
+                if (!$cisloDomovni) $cisloDomovni = $aresResponse->sidlo->cisloDoAdresy ?? '';
 
 				$record->setStreet($street);
-				$record->setStreetHouseNumber($aresResponse->sidlo->cisloDomovni ?? '');
+				$record->setStreetHouseNumber($cisloDomovni);
                 
                 $cisloOrientacni = $aresResponse->sidlo->cisloOrientacni ?? '';
                 if (isset($aresResponse->sidlo->cisloOrientacniPismeno)) $cisloOrientacni .= $aresResponse->sidlo->cisloOrientacniPismeno;
-                
+
 				$record->setStreetOrientationNumber($cisloOrientacni);
 				$town = $aresResponse->sidlo->nazevObce ?? '';
 
@@ -230,9 +236,8 @@ class Ares
 						if (str_contains($town, '-')) {
 							$town = $aresResponse->sidlo->nazevMestskehoObvodu ?? $town;
 						}
-
 						$townPart = $aresResponse->sidlo->nazevCastiObce ?? NULL;
-						if ($townPart !== NULL && $townPart !== $town) {
+						if ($townPart !== NULL && !str_contains($town, $townPart)) {
 							$town .= ' - ' . $townPart;
 						}
 					} else {
@@ -242,12 +247,17 @@ class Ares
 					$townPart = $aresResponse->sidlo->nazevCastiObce ?? NULL;
 					if ($townPart !== NULL && $townPart !== $town) {
 						$townPartContainsTown = FALSE;
+                        $townContainsPart = FALSE;
 						if (str_starts_with($townPart, $town)) {
 							$townPartContainsTown = TRUE;
 						}
-
+                        if (str_contains($town, $townPart)) {
+                            $townContainsPart = TRUE;
+                        }
 						if ($townPartContainsTown) {
 							$town = $townPart;
+                        } else if ($townContainsPart) {
+                            $town = $town; // no change
 						} else {
 							$town .= ' - ' . $townPart;
 						}
@@ -255,7 +265,7 @@ class Ares
 				}
 
 				$record->setTown($town);
-				$record->setZip((string)($aresResponse->sidlo->psc ?? ''));
+				$record->setZip((string)($aresResponse->sidlo->psc ?? $aresResponse->sidlo->pscTxt ?? ''));
 
 				if (isset($aresResponse->sidlo->textovaAdresa) && $record->getZip() === '' && $record->getTown() === '' && trim($record->getStreet()) === '') {
 					$re = '/([a-zA-ZěščřžýáíéĚŠČŘŽÝÁÍÉ ]+), (.*), PSČ ([0-9 ]+), /mUu';
